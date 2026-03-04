@@ -1,5 +1,7 @@
 # CHANGELOG
 
+## 1.0.13
+
 - [Fix] Change deep-link format from `tt://` to `tt://?`. For backward compatibility, `tt://` is still supported.
 
 ## 1.0.11
