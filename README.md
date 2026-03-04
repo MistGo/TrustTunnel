@@ -250,7 +250,7 @@ The endpoint binary can generate client configurations in two formats:
 
 ##### Deep-Link Format (Default)
 
-Generate a compact `tt://` URI suitable for QR codes and mobile apps:
+Generate a compact `tt://?` URI suitable for QR codes and mobile apps:
 
 ```shell
 # <client_name> - name of the client those credentials will be included in the configuration
@@ -263,7 +263,7 @@ cd /opt/trusttunnel/
 ./trusttunnel_endpoint vpn.toml hosts.toml -c <client_name> -a <address> --format deeplink
 ```
 
-This outputs a `tt://` deep-link URI that can be:
+This outputs a `tt://?` deep-link URI that can be:
 
 - Shared directly with mobile clients
 - Used with the [CLI client][trusttunnel-client] or [TrustTunnel Flutter Client][trusttunnel-flutter-client]

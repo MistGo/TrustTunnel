@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- [Fix] Change deep-link format from `tt://` to `tt://?`. For backward compatibility, `tt://` is still supported.
+
 ## 1.0.11
 
 - [Security] Fixed traffic leaking to local network via UDP, ICMP, and SOCKS5 forwarders
