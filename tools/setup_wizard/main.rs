@@ -42,6 +42,7 @@ pub fn get_mode() -> Mode {
 #[derive(Default)]
 pub struct PredefinedParameters {
     pub listen_address: Option<String>,
+    pub deeplink_port: Option<u16>,
     pub credentials: Option<(String, String)>,
     pub hostname: Option<String>,
     pub library_settings_file: Option<String>,
@@ -194,6 +195,7 @@ Required in non-interactive mode."#,
 
     *PREDEFINED_PARAMS.lock().unwrap() = PredefinedParameters {
         listen_address: args.get_one::<String>(LISTEN_ADDRESS_PARAM_NAME).cloned(),
+        deeplink_port: Some(443u16),
         credentials: args
             .get_one::<String>(CREDENTIALS_PARAM_NAME)
             .map(|x| x.splitn(2, ':'))

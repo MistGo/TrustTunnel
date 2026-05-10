@@ -10,6 +10,7 @@ use toml_edit::{value, Document};
 #[allow(clippy::too_many_arguments)]
 pub fn build(
     client: &String,
+    deeplink_port: &u16,
     addresses: Vec<String>,
     username: &[registry_based::Client],
     hostsettings: &TlsHostsSettings,
@@ -39,6 +40,7 @@ pub fn build(
 
     ClientConfig {
         hostname: host.hostname.clone(),
+        deeplink_port: deeplink_port.clone(),
         addresses,
         custom_sni: custom_sni.unwrap_or_default(),
         has_ipv6: true, // Hardcoded to true, client could change this himself
@@ -59,6 +61,7 @@ pub fn build(
 pub struct ClientConfig {
     /// Endpoint host name, used for TLS session establishment
     hostname: String,
+    deeplink_port: u16,
     /// Endpoint addresses in `IP:port` or `hostname:port` format
     addresses: Vec<String>,
     /// Custom SNI value for TLS handshake.
@@ -94,7 +97,12 @@ pub struct ClientConfig {
 impl ClientConfig {
     pub fn compose_toml(&self) -> String {
         let mut doc: Document = TEMPLATE.parse().unwrap();
-        doc["hostname"] = value(&self.hostname);
+        let mut hostname = self.hostname.clone();
+
+        let base_host = hostname.split(':').next().unwrap_or(hostname.as_str());
+        hostname = format!("{}:{}", base_host, self.deeplink_port);
+
+        doc["hostname"] = value(&hostname);
         let vec = toml_edit::Array::from_iter(self.addresses.iter().map(|x| x.as_str()));
         doc["addresses"] = value(vec);
         doc["custom_sni"] = value(&self.custom_sni);
@@ -140,9 +148,14 @@ impl ClientConfig {
             .parse()
             .map_err(|e| std::io::Error::new(std::io::ErrorKind::InvalidInput, e))?;
 
+        let mut hostname = self.hostname.clone();
+
+        let base_host = hostname.split(':').next().unwrap_or(hostname.as_str());
+        hostname = format!("{}:{}", base_host, self.deeplink_port);
+
         // Build deep-link config
         let config = DeepLinkConfig {
-            hostname: self.hostname.clone(),
+            hostname,
             addresses: self.addresses.clone(),
             username: self.username.clone(),
             password: self.password.clone(),
@@ -241,6 +254,7 @@ mod tests {
         fn test_config(certificate: String, cert_is_system_verifiable: bool) -> Self {
             ClientConfig {
                 hostname: "vpn.example.com".into(),
+                deeplink_port: 443,
                 addresses: vec!["1.2.3.4:443".parse().unwrap()],
                 custom_sni: String::new(),
                 has_ipv6: true,

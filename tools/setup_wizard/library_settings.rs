@@ -34,7 +34,8 @@ pub fn build() -> Built {
                     )
                 }),
         )
-        .unwrap();
+        .unwrap()
+        .deeplink_port(443);
 
     // Collect credentials first, then build settings
     let (credentials_path, clients) = build_credentials();
