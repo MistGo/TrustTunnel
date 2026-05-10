@@ -102,7 +102,7 @@ and the [GUI application][trusttunnel-flutter-client].
 An installation script is available that can be run with the following command:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/TrustTunnel/TrustTunnel/refs/heads/master/scripts/install.sh | sh -s -
+curl -fsSL https://raw.githubusercontent.com/MistGo/TrustTunnel/refs/heads/master/scripts/install.sh | sh -s -
 ```
 
 The installation script will download the prebuilt package from the latest
@@ -113,7 +113,7 @@ GitHub release for the appropriate system architecture and unpack it to
 If you want to install a specific version (instead of the latest), use `-V <version>`:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/TrustTunnel/TrustTunnel/refs/heads/master/scripts/install.sh | sh -s - -V <version>
+curl -fsSL https://raw.githubusercontent.com/MistGo/TrustTunnel/refs/heads/master/scripts/install.sh | sh -s - -V <version>
 ```
 
 > [!NOTE]
@@ -126,7 +126,7 @@ The installation script always installs the latest available version.
 So, to update your installation, run the install command again:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/TrustTunnel/TrustTunnel/refs/heads/master/scripts/install.sh | sh -s -
+curl -fsSL https://raw.githubusercontent.com/MistGo/TrustTunnel/refs/heads/master/scripts/install.sh | sh -s -
 ```
 
 This re-runs the installer and replaces the binaries in the installation
@@ -312,7 +312,7 @@ the official **[CLI client][trusttunnel-client]** setup.
 An installation script is available:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/TrustTunnel/TrustTunnelClient/refs/heads/master/scripts/install.sh | sh -s -
+curl -fsSL https://raw.githubusercontent.com/MistGo/TrustTunnelClient/refs/heads/master/scripts/install.sh | sh -s -
 ```
 
 The installation script will download the prebuilt package from the latest GitHub release for the appropriate system architecture and unpack it to `/opt/trusttunnel_client`. The output directory could be overridden by specifying `-o DIR` flag at the end of the command above.
@@ -346,7 +346,7 @@ The installation script always installs the latest available version.
 So, to update your installation, run the install command again:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/TrustTunnel/TrustTunnelClient/refs/heads/master/scripts/install.sh | sh -s -
+curl -fsSL https://raw.githubusercontent.com/MistGo/TrustTunnelClient/refs/heads/master/scripts/install.sh | sh -s -
 ```
 
 This re-runs the installer and replaces the binaries in the installation directory (`/opt/trusttunnel_client` by default, or the directory you specified with `-o DIR`).
