@@ -82,6 +82,9 @@ pub struct Settings {
     /// The address to listen on
     #[serde(default = "Settings::default_listen_address")]
     pub(crate) listen_address: SocketAddr,
+    /// The port for client configs
+    #[serde(default = "Settings::default_deeplink_port")]
+    pub(crate) deeplink_port: u16,
     /// Whether IPv6 connections can be routed or rejected with unreachable status
     #[serde(default = "Settings::default_ipv6_available")]
     pub(crate) ipv6_available: bool,
@@ -569,6 +572,10 @@ impl Settings {
         SocketAddr::from((Ipv4Addr::UNSPECIFIED, 443))
     }
 
+    pub fn default_deeplink_port() -> u16 {
+        443
+    }
+
     pub fn default_ipv6_available() -> bool {
         true
     }
@@ -651,6 +658,7 @@ impl Default for Settings {
     fn default() -> Self {
         Self {
             listen_address: SocketAddr::from((Ipv4Addr::UNSPECIFIED, 0)),
+            deeplink_port: 443,
             ipv6_available: false,
             allow_private_network_connections: true,
             tls_handshake_timeout: Settings::default_tls_handshake_timeout(),
@@ -762,11 +770,11 @@ impl Http2Settings {
     }
 
     pub fn default_initial_connection_window_size() -> u32 {
-        8 * 1024 * 1024
+        32 * 1024 * 1024
     }
 
     pub fn default_initial_stream_window_size() -> u32 {
-        128 * 1024 // Chrome constant
+        4096 * 1024 // Custom constant
     }
 
     pub fn default_max_concurrent_streams() -> u32 {
@@ -774,7 +782,7 @@ impl Http2Settings {
     }
 
     pub fn default_max_frame_size() -> u32 {
-        1 << 14 // Firefox constant
+        1 << 16 // Custom constant
     }
 
     pub fn default_header_table_size() -> u32 {
@@ -914,6 +922,7 @@ impl SettingsBuilder {
         Self {
             settings: Settings {
                 listen_address: Settings::default_listen_address(),
+                deeplink_port: Settings::default_deeplink_port(),
                 ipv6_available: Settings::default_ipv6_available(),
                 allow_private_network_connections:
                     Settings::default_allow_private_network_connections(),
@@ -957,6 +966,11 @@ impl SettingsBuilder {
             .next()
             .ok_or_else(|| io::Error::new(ErrorKind::Other, "Address is parsed to empty list"))?;
         Ok(self)
+    }
+
+    pub fn deeplink_port(mut self, port: u16) -> Self {
+        self.settings.deeplink_port = port;
+        self
     }
 
     /// Set the reverse proxy settings.

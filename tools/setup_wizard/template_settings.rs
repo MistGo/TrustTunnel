@@ -9,6 +9,7 @@ pub static MAIN_TABLE: Lazy<String> = Lazy::new(|| {
     format!(
         r#"{}
 listen_address = ""
+deeplink_port = {}
 
 # The path to a TOML file in the following format:
 #
@@ -81,6 +82,7 @@ ping_path = "{}"
 auth_failure_status_code = {}
 "#,
         Settings::doc_listen_address().to_toml_comment(),
+        Settings::default_deeplink_port(),
         crate::library_settings::DEFAULT_CREDENTIALS_PATH,
         crate::library_settings::DEFAULT_RULES_PATH,
         Settings::doc_ipv6_available().to_toml_comment(),

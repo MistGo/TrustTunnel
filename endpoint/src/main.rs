@@ -255,7 +255,7 @@ fn main() {
 
     if args.contains_id(CLIENT_CONFIG_PARAM_NAME) {
         let username = args.get_one::<String>(CLIENT_CONFIG_PARAM_NAME).unwrap();
-        let listen_port = settings.get_listen_address().port();
+        let listen_port = settings.get_deeplink_port().clone();
         let addresses: Vec<String> = args
             .get_many::<String>(ADDRESS_PARAM_NAME)
             .expect("At least one address should be specified")
@@ -440,6 +440,7 @@ fn main() {
 
         let client_config = client_config::build(
             username,
+            settings.get_deeplink_port(),
             addresses,
             settings.get_clients(),
             &tls_hosts_settings,
@@ -649,7 +650,8 @@ fn extract_rules_file_path(settings_contents: &str, settings_path: &str) -> Opti
 /// - `domain` without port (e.g. `vpn.example.com`) — `default_port` is appended
 fn parse_endpoint_address(input: &str, default_port: u16) -> String {
     if let Ok(addr) = SocketAddr::from_str(input) {
-        return addr.to_string();
+        let ip = addr.ip().to_string();
+        return format!("{ip}:{default_port}");
     }
     if let Ok(addr) = SocketAddr::from_str(&format!("{input}:{default_port}")) {
         return addr.to_string();
@@ -657,15 +659,8 @@ fn parse_endpoint_address(input: &str, default_port: u16) -> String {
     if let Ok(ip) = input.parse::<std::net::IpAddr>() {
         return SocketAddr::new(ip, default_port).to_string();
     }
-    if let Some((domain, port_str)) = input.rsplit_once(':') {
-        let port: u16 = port_str.parse().unwrap_or_else(|_| {
-            panic!(
-                "Failed to parse port in address '{}'. \
-                 Expected `ip`, `ip:port`, `domain`, or `domain:port` format.",
-                input
-            );
-        });
-        format!("{domain}:{port}")
+    if let Some((domain, _)) = input.rsplit_once(':') {
+        format!("{domain}:{default_port}")
     } else {
         format!("{input}:{default_port}")
     }
@@ -761,7 +756,7 @@ mod tests {
 
     #[test]
     fn test_parse_ipv4_with_port() {
-        assert_eq!(parse_endpoint_address("1.2.3.4:443", 8443), "1.2.3.4:443");
+        assert_eq!(parse_endpoint_address("1.2.3.4:443", 8443), "1.2.3.4:8443");
     }
 
     #[test]
@@ -771,7 +766,7 @@ mod tests {
 
     #[test]
     fn test_parse_ipv6_with_port() {
-        assert_eq!(parse_endpoint_address("[::1]:443", 8443), "[::1]:443");
+        assert_eq!(parse_endpoint_address("[::1]:443", 8443), "[::1]:8443");
     }
 
     #[test]
@@ -783,7 +778,7 @@ mod tests {
     fn test_parse_domain_with_port() {
         assert_eq!(
             parse_endpoint_address("vpn.example.com:8443", 443),
-            "vpn.example.com:8443"
+            "vpn.example.com:443"
         );
     }
 
@@ -813,7 +808,7 @@ mod tests {
     fn test_parse_ipv6_with_port_bracket_notation() {
         assert_eq!(
             parse_endpoint_address("[2001:db8::1]:443", 8443),
-            "[2001:db8::1]:443"
+            "[2001:db8::1]:8443"
         );
     }
 

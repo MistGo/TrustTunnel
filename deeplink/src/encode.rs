@@ -181,6 +181,7 @@ mod tests {
     #[test]
     fn test_encode_tlv_payload_minimal() {
         let config = DeepLinkConfig::builder()
+            .deeplink_port(443)
             .hostname("vpn.example.com".to_string())
             .addresses(vec!["1.2.3.4:443".to_string()])
             .username("alice".to_string())
@@ -197,6 +198,7 @@ mod tests {
     #[test]
     fn test_encode_tlv_payload_with_optional_fields() {
         let config = DeepLinkConfig::builder()
+            .deeplink_port(443)
             .hostname("vpn.example.com".to_string())
             .addresses(vec!["1.2.3.4:443".to_string()])
             .username("alice".to_string())
@@ -218,6 +220,7 @@ mod tests {
     #[test]
     fn test_encode_full_uri() {
         let config = DeepLinkConfig::builder()
+            .deeplink_port(443)
             .hostname("vpn.example.com".to_string())
             .addresses(vec!["1.2.3.4:443".to_string()])
             .username("alice".to_string())

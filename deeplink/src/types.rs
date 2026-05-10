@@ -149,6 +149,7 @@ impl DeepLinkConfig {
 #[derive(Debug, Default)]
 pub struct DeepLinkConfigBuilder {
     hostname: Option<String>,
+    deeplink_port: Option<u16>,
     addresses: Option<Vec<String>>,
     username: Option<String>,
     password: Option<String>,
@@ -164,7 +165,16 @@ pub struct DeepLinkConfigBuilder {
 }
 
 impl DeepLinkConfigBuilder {
-    pub fn hostname(mut self, hostname: String) -> Self {
+    pub fn deeplink_port(mut self, port: u16) -> Self {
+        self.deeplink_port = Some(port);
+        self
+    }
+
+    pub fn hostname(mut self, mut hostname: String) -> Self {
+        if let Some(port) = self.deeplink_port {
+            let base_host = hostname.split(':').next().unwrap_or(hostname.as_str());
+            hostname = format!("{}:{}", base_host, port);
+        }
         self.hostname = Some(hostname);
         self
     }
