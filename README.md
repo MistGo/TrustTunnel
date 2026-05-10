@@ -53,8 +53,8 @@ The TrustTunnel project includes the VPN endpoint (this repository), the
 and the [GUI application][trusttunnel-flutter-client].
 
 [adguard-vpn]: https://adguard-vpn.com
-[trusttunnel-client]: https://github.com/TrustTunnel/TrustTunnelClient
-[trusttunnel-flutter-client]: https://github.com/TrustTunnel/TrustTunnelFlutterClient
+[trusttunnel-client]: https://github.com/MistGo/TrustTunnelClient
+[trusttunnel-flutter-client]: https://github.com/MistGo/TrustTunnelFlutterClient
 [app-store]: https://agrd.io/ios_trusttunnel
 [play-store]: https://agrd.io/android_trusttunnel
 
@@ -297,7 +297,7 @@ Both formats contain all necessary information to connect to the endpoint. See t
 
 Congratulations! You've done setting up the endpoint!
 
-[trusttunnel-flutter-configuration]: https://github.com/TrustTunnel/TrustTunnelFlutterClient/blob/master/README.md#server-configuration
+[trusttunnel-flutter-configuration]: https://github.com/MistGo/TrustTunnelFlutterClient/blob/master/README.md#server-configuration
 
 ### Client setup
 
@@ -328,7 +328,7 @@ Download the latest release archive from the
 
 Extract the archive to a directory of your choice, for example `C:\TrustTunnel\`.
 
-[trusttunnel-client-releases]: https://github.com/TrustTunnel/TrustTunnelClient/releases/latest
+[trusttunnel-client-releases]: https://github.com/MistGo/TrustTunnelClient/releases/latest
 
 ##### Router setup
 
@@ -405,7 +405,7 @@ client.
 > - **Exclusions**: Domains/IPs to bypass or route through VPN
 > - **Listener type**: TUN device or SOCKS5 proxy
 >
-> See the [TrustTunnel CLI Client README](https://github.com/TrustTunnel/TrustTunnelClient/blob/master/trusttunnel/README.md#configuration-reference) for all available options.
+> See the [TrustTunnel CLI Client README](https://github.com/MistGo/TrustTunnelClient/blob/master/trusttunnel/README.md#configuration-reference) for all available options.
 
 <!-- markdownlint-disable MD028 -->
 > [!NOTE]

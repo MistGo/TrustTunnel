@@ -268,7 +268,7 @@ Deploy artifacts:
 
             git clone https://${bamboo_githubPublicRepoPassword}:@github.com/TrustTunnel/TrustTunnel/
             cd TrustTunnel
-            CHANGELOG_URL="https://github.com/TrustTunnel/TrustTunnel/blob/${TAG}/CHANGELOG.md"
+            CHANGELOG_URL="https://github.com/MistGo/TrustTunnel/blob/${TAG}/CHANGELOG.md"
             gh config set -h github.com oauth_token "${bamboo_githubPublicRepoPassword}" || exit 1
             gh release delete -y ${TAG} || true
             gh release create ${TAG} -t "${TAG}" -n "See [CHANGELOG.md](${CHANGELOG_URL}) for the list of changes."

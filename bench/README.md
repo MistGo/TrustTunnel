@@ -18,7 +18,7 @@ The benchmark consists of 3 isolated parts:
    ./single_host.sh build
    ```
 
-   The client repo defaults to `https://github.com/TrustTunnel/TrustTunnelClient.git`.
+   The client repo defaults to `https://github.com/MistGo/TrustTunnelClient.git`.
    To use a different client repo:
 
    ```shell

@@ -2,7 +2,7 @@
 FROM debian:bookworm-slim
 ARG TT_VERSION
 ARG TARGETARCH
-ARG TT_RELEASE_BASE_URL="https://github.com/TrustTunnel/TrustTunnel/releases/download"
+ARG TT_RELEASE_BASE_URL="https://github.com/MistGo/TrustTunnel/releases/download"
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl tar iproute2 && rm -rf /var/lib/apt/lists/*
 RUN set -eux; \
     case "$TARGETARCH" in \

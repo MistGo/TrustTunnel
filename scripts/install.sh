@@ -438,7 +438,7 @@ configure() {
 
   pkg_name="trusttunnel-${os}-${cpu}.${pkg_ext}"
   apply_version
-  url="https://github.com/TrustTunnel/TrustTunnel/releases/download/v${version}/${pkg_name}"
+  url="https://github.com/MistGo/TrustTunnel/releases/download/v${version}/${pkg_name}"
 
   readonly output_dir url pkg_name
 

@@ -34,7 +34,7 @@ NETWORK_NAME="bench-network"
 ENDPOINT_HOSTNAME="endpoint.bench"
 RESULTS_DIR="results"
 REMOTE_HOSTNAME="server.bench"
-DEFAULT_CLIENT_URL="https://github.com/TrustTunnel/TrustTunnelClient.git"
+DEFAULT_CLIENT_URL="https://github.com/MistGo/TrustTunnelClient.git"
 
 build_remote() {
   docker build \

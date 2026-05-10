@@ -84,7 +84,7 @@ fn main() {
     sudo ./trusttunnel_endpoint vpn.toml hosts.toml -c admin -a 203.0.113.1
 
 For detailed configuration options, see:
-https://github.com/TrustTunnel/TrustTunnel/blob/master/CONFIGURATION.md
+https://github.com/MistGo/TrustTunnel/blob/master/CONFIGURATION.md
 "#,
         )
         .disable_colored_help(false)
@@ -350,7 +350,7 @@ fn print_setup_complete_summary(
     println!("   • TrustTunnel Flutter Client - Enter the config manually");
     println!();
     const CONFIG_URL: &str =
-        "https://github.com/TrustTunnel/TrustTunnel/blob/master/CONFIGURATION.md";
+        "https://github.com/MistGo/TrustTunnel/blob/master/CONFIGURATION.md";
     println!(
         "See \x1b]8;;{}\x1b\\{}\x1b]8;;\x1b\\ for advanced settings.",
         CONFIG_URL, CONFIG_URL
